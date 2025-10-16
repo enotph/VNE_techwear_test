@@ -10,9 +10,22 @@ class ProductBase(BaseModel):
     sizes: List[str] = Field(default = [], description = 'Available Sizes')
 
 
-    class ProductCreate(ProductBase):
+class ProductCreate(ProductBase):
 
-        @field_validator('name')
-        @classmethod
+    @field_validator('name')
+    @classmethod
+    def name_must_not_be_empty(cls, v: str) -> str:
+        if not v.strip():
+            raise ValueError('Product name cannot be empty')
+        return v.strip()
+
+
+class ProductUpdate(BaseModel):
+
+    name: Optional[str] = Field(None, min_length=1, max_length=100)
+    description: Optional[str] = Field(None, max_length=500)
+    price: Optional[float] = Field(None, gt=0)
+    category: Optional[str] = Field(None, min_length=1, max_length=50)
+    sizes: Optional[List[str]] = None
 
 

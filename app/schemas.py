@@ -10,7 +10,7 @@ class ProductBase(BaseModel):
     sizes: List[str] = Field(default = [], description = 'Available Sizes')
 
 
-class ProductCreate(ProductBase):
+class ProductCreate(ProductBase):                                  #схема валидации name
 
     @field_validator('name')
     @classmethod
@@ -20,7 +20,7 @@ class ProductCreate(ProductBase):
         return v.strip()
 
 
-class ProductUpdate(BaseModel):
+class ProductUpdate(BaseModel):                                     #схема для обновления данных продукта
 
     name: Optional[str] = Field(None, min_length=1, max_length=100)
     description: Optional[str] = Field(None, max_length=500)
@@ -28,4 +28,10 @@ class ProductUpdate(BaseModel):
     category: Optional[str] = Field(None, min_length=1, max_length=50)
     sizes: Optional[List[str]] = None
 
+
+class ProductResponse(ProductBase):                                 #модель для сериализации
+    id: int
+
+    class Config:
+        from_attributes = True
 

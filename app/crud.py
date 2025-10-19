@@ -50,7 +50,7 @@ def create_product(db: Session, product: schemas.ProductCreate) -> models.Produc
     return db_product
 
 
-def upgrade_product(
+def update_product(
         db: Session,
         product_id: int,
         product_update: schemas.ProductUpdate
@@ -73,7 +73,7 @@ def upgrade_product(
     return db_product
 
 
-def delete_product(db: Session, rpoduct_id: int) -> bool:
+def delete_product(db: Session, product_id: int) -> bool:
 
     db_product = get_product(db, product_id)
     if not db_product:

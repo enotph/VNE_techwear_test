@@ -32,6 +32,6 @@ class ProductUpdate(BaseModel):                                     #схема 
 class ProductResponse(ProductBase):                                 #модель для сериализации
     id: int
 
-    class Config:
-        from_attributes = True
-
+    model_config = {
+        "from_attributes": True
+    }
